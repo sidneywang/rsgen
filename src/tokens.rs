@@ -3,7 +3,7 @@
 //! ## Example
 //!
 //! ```rust
-//! use genco::{Tokens, Java};
+//! use rsgen::{Tokens, Java};
 //! let mut toks: Tokens<Java> = Tokens::new();
 //! toks.append("foo");
 //! ```

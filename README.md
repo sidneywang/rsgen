@@ -16,9 +16,9 @@ This is an example building some JavaScript:
 
 ```rust
 #[macro_use]
-extern crate genco;
+extern crate rsgen;
 
-use genco::Quoted;
+use rsgen::Quoted;
 
 fn main() {
     let mut file: Tokens<JavaScript> = Tokens::new();
@@ -54,10 +54,10 @@ Simple support for importing names.
 
 ```rust
 #[macro_use]
-extern crate genco;
+extern crate rsgen;
 
 fn main() {
-    use genco::dart::imported;
+    use rsgen::dart::imported;
 
     let m = imported("dart:math").alias("m");
     let sqrt = m.name("sqrt");
