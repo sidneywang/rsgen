@@ -1,4 +1,4 @@
-//! Macros in GenCo
+//! Macros in RsGen
 
 /// Helper macro to reduce boilerplate needed with nested token expressions.
 ///

@@ -1,9 +1,6 @@
-# GenCo
+**Because origin repo is completely changed, I rename it. It's origin name is GenCo**
 
-[![Build Status](https://travis-ci.org/udoprog/genco.svg?branch=master)](https://travis-ci.org/udoprog/genco)
-[![crates.io](https://img.shields.io/crates/v/genco.svg?maxAge=2592000)](https://crates.io/crates/genco)
-
-GenCo is an even simpler code generator for Rust, specifically written for use in [reproto][reproto].
+RsGen is an even simpler code generator for Rust, specifically written for use in [reproto][reproto].
 
 It does not deal with language-specific syntax, instead it can do some of the basic necessities
 through specialization.
