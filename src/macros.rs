@@ -1,11 +1,11 @@
-//! Macros in GenCo
+//! Macros in RsGen
 
 /// Helper macro to reduce boilerplate needed with nested token expressions.
 ///
 /// ## Examples
 ///
 /// ```rust,ignore
-/// let n1: genco::Tokens<()> = toks!("var v = ", "bar".quoted(), ";");
+/// let n1: rsgen::Tokens<()> = toks!("var v = ", "bar".quoted(), ";");
 /// ```
 #[macro_export]
 macro_rules! toks {
@@ -27,9 +27,9 @@ macro_rules! toks {
 /// ## Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate genco;
+/// # #[macro_use] extern crate rsgen;
 /// # fn main() {
-/// use genco::{Tokens, Java, Cons};
+/// use rsgen::{Tokens, Java, Cons};
 ///
 /// let mut toks = Tokens::<Java>::new();
 /// // id being cloned.
@@ -49,9 +49,9 @@ macro_rules! toks {
 /// Pushing as a block:
 ///
 /// ```rust
-/// # #[macro_use] extern crate genco;
+/// # #[macro_use] extern crate rsgen;
 /// # fn main() {
-/// use genco::{Tokens, Java, Cons};
+/// use rsgen::{Tokens, Java, Cons};
 ///
 /// let mut toks = Tokens::<Java>::new();
 /// // id being cloned.
@@ -97,9 +97,9 @@ macro_rules! push {
 /// ## Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate genco;
+/// # #[macro_use] extern crate rsgen;
 /// # fn main() {
-/// use genco::{Tokens, Java, Cons};
+/// use rsgen::{Tokens, Java, Cons};
 ///
 /// let mut toks = Tokens::<Java>::new();
 /// // id being cloned.
@@ -120,9 +120,9 @@ macro_rules! push {
 /// Pushing as a block:
 ///
 /// ```rust
-/// # #[macro_use] extern crate genco;
+/// # #[macro_use] extern crate rsgen;
 /// # fn main() {
-/// use genco::{Tokens, Java, Cons};
+/// use rsgen::{Tokens, Java, Cons};
 ///
 /// let mut toks = Tokens::<Java>::new();
 /// // id being cloned.

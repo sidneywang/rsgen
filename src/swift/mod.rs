@@ -4,6 +4,30 @@ use std::collections::BTreeSet;
 use std::fmt::{self, Write};
 use {Cons, Custom, Formatter, Tokens};
 
+mod modifier;
+mod argument;
+mod constructor;
+mod method;
+mod comment;
+mod field;
+mod protocol;
+mod class;
+mod enum_;
+mod struct_;
+mod extension;
+
+pub use self::argument::Argument;
+pub use self::class::Class;
+pub use self::struct_::Struct;
+pub use self::extension::Extension;
+pub use self::enum_::Enum;
+pub use self::constructor::Constructor;
+pub use self::field::Field;
+pub use self::protocol::Protocol;
+pub use self::method::Method;
+pub use self::modifier::Modifier;
+pub use self::comment::BlockComment;
+
 /// Name of an imported type.
 #[derive(Debug, Clone, Hash, PartialOrd, Ord, PartialEq, Eq)]
 pub struct Name<'el> {
@@ -153,9 +177,9 @@ impl<'el> Custom for Swift<'el> {
 
 /// Setup an imported element.
 pub fn imported<'a, M, N>(module: M, name: N) -> Swift<'a>
-where
-    M: Into<Cons<'a>>,
-    N: Into<Cons<'a>>,
+    where
+        M: Into<Cons<'a>>,
+        N: Into<Cons<'a>>,
 {
     Swift::Type {
         name: Name {
@@ -167,8 +191,8 @@ where
 
 /// Setup a local element.
 pub fn local<'a, N>(name: N) -> Swift<'a>
-where
-    N: Into<Cons<'a>>,
+    where
+        N: Into<Cons<'a>>,
 {
     Swift::Type {
         name: Name {
@@ -180,9 +204,9 @@ where
 
 /// Setup a map.
 pub fn map<'a, K, V>(key: K, value: V) -> Swift<'a>
-where
-    K: Into<Swift<'a>>,
-    V: Into<Swift<'a>>,
+    where
+        K: Into<Swift<'a>>,
+        V: Into<Swift<'a>>,
 {
     Swift::Map {
         key: Box::new(key.into()),
@@ -192,8 +216,8 @@ where
 
 /// Setup an array.
 pub fn array<'a, I>(inner: I) -> Swift<'a>
-where
-    I: Into<Swift<'a>>,
+    where
+        I: Into<Swift<'a>>,
 {
     Swift::Array {
         inner: Box::new(inner.into()),

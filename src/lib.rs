@@ -1,4 +1,4 @@
-//! ## Simple and flexible code generator (genco)
+//! ## Simple and flexible code generator (rsgen)
 #![deny(missing_docs)]
 
 #[macro_use]
