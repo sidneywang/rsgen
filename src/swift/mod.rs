@@ -5,6 +5,28 @@ use std::fmt::{self, Write};
 use {Cons, Custom, Formatter, Tokens};
 
 mod modifier;
+mod argument;
+mod constructor;
+mod method;
+mod comment;
+mod field;
+mod protocol;
+mod class;
+mod enum_;
+mod struct_;
+mod extension;
+
+pub use self::argument::Argument;
+pub use self::class::Class;
+pub use self::struct_::Struct;
+pub use self::extension::Extension;
+pub use self::enum_::Enum;
+pub use self::constructor::Constructor;
+pub use self::field::Field;
+pub use self::protocol::Protocol;
+pub use self::method::Method;
+pub use self::modifier::Modifier;
+pub use self::comment::BlockComment;
 
 /// Name of an imported type.
 #[derive(Debug, Clone, Hash, PartialOrd, Ord, PartialEq, Eq)]
