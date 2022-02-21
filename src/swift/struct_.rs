@@ -19,6 +19,8 @@ pub struct Struct<'el> {
     pub constructors: Vec<Constructor<'el>>,
     /// Declared methods.
     pub methods: Vec<Method<'el>>,
+    /// What this class implements.
+    pub implements: Vec<Swift<'el>>,
     /// Generic parameters.
     pub parameters: Tokens<'el, Swift<'el>>,
     /// Annotations for the constructor.
@@ -41,6 +43,7 @@ impl<'el> Struct<'el> {
             parameters: Tokens::new(),
             attributes: Tokens::new(),
             name: name.into(),
+            implements: vec![]
         }
     }
 
@@ -80,6 +83,17 @@ impl<'el> IntoTokens<'el, Swift<'el>> for Struct<'el> {
 
             t
         });
+
+        if !self.implements.is_empty() {
+            let implements: Tokens<_> = self
+                .implements
+                .into_iter()
+                .map::<Element<_>, _>(Into::into)
+                .collect();
+
+            sig.append(":");
+            sig.append(implements.join(", "));
+        }
 
         let mut s = Tokens::new();
 
