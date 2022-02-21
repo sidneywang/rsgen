@@ -4,29 +4,56 @@ use std::collections::BTreeSet;
 use std::fmt::{self, Write};
 use {Cons, Custom, Formatter, Tokens};
 
-mod modifier;
 mod argument;
-mod constructor;
-mod method;
-mod comment;
-mod field;
-mod protocol;
 mod class;
+mod comment;
+mod constructor;
 mod enum_;
-mod struct_;
 mod extension;
+mod field;
+mod method;
+mod modifier;
+mod protocol;
+mod struct_;
 
 pub use self::argument::Argument;
 pub use self::class::Class;
-pub use self::struct_::Struct;
-pub use self::extension::Extension;
-pub use self::enum_::Enum;
+pub use self::comment::BlockComment;
 pub use self::constructor::Constructor;
+pub use self::enum_::Enum;
+pub use self::extension::Extension;
 pub use self::field::Field;
-pub use self::protocol::Protocol;
 pub use self::method::Method;
 pub use self::modifier::Modifier;
-pub use self::comment::BlockComment;
+pub use self::protocol::Protocol;
+pub use self::struct_::Struct;
+
+/// Short primitive type.
+pub const SHORT: Swift<'static> = Swift::Primitive { primitive: "Int16"};
+
+/// Integer primitive type.
+pub const INTEGER: Swift<'static> = Swift::Primitive { primitive: "Int32" };
+
+/// Long primitive type.
+pub const LONG: Swift<'static> = Swift::Primitive { primitive: "Int64" };
+
+/// Float primitive type.
+pub const FLOAT: Swift<'static> = Swift::Primitive { primitive: "Float" };
+
+/// Double primitive type.
+pub const DOUBLE: Swift<'static> = Swift::Primitive { primitive: "Double" };
+
+/// Char primitive type.
+pub const CHAR: Swift<'static> = Swift::Primitive { primitive: "Character" };
+
+/// Boolean primitive type.
+pub const BOOLEAN: Swift<'static> = Swift::Primitive { primitive:"Bool"};
+
+/// Byte primitive type.
+pub const BYTE: Swift<'static> = Swift::Primitive { primitive: "Int8" };
+
+/// Void primitive type.
+pub const VOID: Swift<'static> = Swift::Primitive { primitive: "Void" };
 
 /// Name of an imported type.
 #[derive(Debug, Clone, Hash, PartialOrd, Ord, PartialEq, Eq)]
@@ -40,6 +67,12 @@ pub struct Name<'el> {
 /// Swift token specialization.
 #[derive(Debug, Clone, Hash, PartialOrd, Ord, PartialEq, Eq)]
 pub enum Swift<'el> {
+    /// Primitive type.
+    Primitive {
+        /// The primitive-primitive type.
+        primitive: &'static str,
+    },
+
     /// A regular type.
     Type {
         /// The name being referenced.
@@ -77,6 +110,9 @@ impl<'el> Swift<'el> {
             }
             Array { ref inner, .. } => {
                 Self::type_imports(inner, modules);
+            }
+            Primitive { primitive } => {
+                // do nothing
             }
         };
     }
@@ -133,6 +169,9 @@ impl<'el> Custom for Swift<'el> {
                 out.write_str("[")?;
                 inner.format(out, extra, level + 1)?;
                 out.write_str("]")?;
+            }
+            Primitive { primitive } => {
+                out.write_str(primitive)?;
             }
         }
 
