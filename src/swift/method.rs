@@ -4,7 +4,7 @@ use {Cons, IntoTokens, Tokens};
 use swift::argument::Argument;
 use swift::comment::BlockComment;
 use swift::modifier::Modifier;
-use swift::Swift;
+use swift::{Swift, VOID};
 
 /// Model for Swift Methods.
 #[derive(Debug, Clone)]
@@ -99,8 +99,10 @@ impl<'el> IntoTokens<'el, Swift<'el>> for Method<'el> {
         });
 
         if let Some(returns) = self.returns {
-            sig.append("->");
-            sig.append(returns);
+            if returns != VOID {
+                sig.append("->");
+                sig.append(returns);
+            }
         }
 
         if self.throws {
