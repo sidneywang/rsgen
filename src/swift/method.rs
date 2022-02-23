@@ -79,6 +79,7 @@ impl<'el> IntoTokens<'el, Swift<'el>> for Method<'el> {
         sig.append({
             let mut n = Tokens::new();
 
+            n.append("func ");
             n.append(self.name);
 
             if !self.parameters.is_empty() {
@@ -154,7 +155,7 @@ mod tests {
         let t = Tokens::from(c);
         assert_eq!(
             Ok(String::from(
-                "/**\n * Hello World\n */\npublic foo<T>();",
+                "/**\n * Hello World\n */\npublic func foo<T>();",
             )),
             t.to_string()
         );
@@ -163,7 +164,7 @@ mod tests {
     #[test]
     fn test_no_comments() {
         let t = Tokens::from(build_method());
-        assert_eq!(Ok(String::from("public foo<T>();")), t.to_string());
+        assert_eq!(Ok(String::from("public func foo<T>();")), t.to_string());
     }
 
     #[test]
@@ -173,7 +174,7 @@ mod tests {
 
         let t = Tokens::from(m);
         assert_eq!(
-            Ok(String::from("public foo<T>() throws;")),
+            Ok(String::from("public func foo<T>() throws;")),
             t.to_string()
         );
     }
@@ -181,6 +182,6 @@ mod tests {
     #[test]
     fn test_returns() {
         let t = Tokens::from(build_return_method());
-        assert_eq!(Ok(String::from("public foo<T>() -> Int;")), t.to_string());
+        assert_eq!(Ok(String::from("public func foo<T>() -> Int;")), t.to_string());
     }
 }
