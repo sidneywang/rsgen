@@ -4,8 +4,8 @@ version = "0.1.0"
 authors = ["sidney.wang <sidney.wang@foxmail.com>"]
 license = "MIT/Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/sidneywang/rsbind"
-homepage = "https://github.com/sidneywang/rsbind"
+repository = "https://github.com/sidneywang/rstbind"
+homepage = "https://github.com/sidneywang/rstbind"
 description = """
 Even simpler code generation for Rust.
 """
