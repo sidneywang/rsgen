@@ -23,6 +23,8 @@ pub struct Class<'el> {
     pub implements: Vec<Swift<'el>>,
     /// Generic parameters.
     pub parameters: Tokens<'el, Swift<'el>>,
+    /// class body
+    pub body: Tokens<'el, Swift<'el>>,
     /// Annotations for the constructor.
     attributes: Tokens<'el, Swift<'el>>,
     /// Name of class.
@@ -42,6 +44,7 @@ impl<'el> Class<'el> {
             constructors: vec![],
             implements: vec![],
             parameters: Tokens::new(),
+            body: Tokens::new(),
             attributes: Tokens::new(),
             name: name.into(),
         }
@@ -122,6 +125,10 @@ impl<'el> IntoTokens<'el, Swift<'el>> for Class<'el> {
                 for method in self.methods {
                     body.push(method);
                 }
+            }
+
+            if !self.body.is_empty() {
+                body.push(self.body);
             }
 
             body.join_line_spacing()
