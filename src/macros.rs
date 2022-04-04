@@ -90,6 +90,23 @@ macro_rules! push {
     ($dest:expr, $($x:expr,)*) => {push!($dest, $($x),*)};
 }
 
+///
+///        let v = "v";
+//         let a = "a";
+//         let b = "b";
+//
+//         push_f!(t, |t| {
+//             push_f!(t, "function bar({}, {}) {{", "a", "b");
+//             nested_f!(t, |t| {
+//                 push_f!(t, "var {} = {} + {};", v, a, b);
+//                 push_f!(t, "return v;");
+//             });
+//             push_f!(t, "}");
+//         });
+//         push_f!(t, "var foo = bar();");
+///
+///
+
 #[macro_export]
 macro_rules! push_f {
     ($dest:expr, |$t:ident| $code:block) => {
@@ -119,7 +136,22 @@ macro_rules! push_f {
 
     ($dest:expr, $f:expr, $($x:expr,)*) => {push_f!($dest, $f, $($x),*)};
 }
-
+///
+///        let v = "v";
+//         let a = "a";
+//         let b = "b";
+//
+//         push_f!(t, |t| {
+//             push_f!(t, "function bar({}, {}) {{", "a", "b");
+//             nested_f!(t, |t| {
+//                 push_f!(t, "var {} = {} + {};", v, a, b);
+//                 push_f!(t, "return v;");
+//             });
+//             push_f!(t, "}");
+//         });
+//         push_f!(t, "var foo = bar();");
+///
+///
 #[macro_export]
 macro_rules! nested_f {
     ($dest:expr, |$t:ident| $code:block) => {
