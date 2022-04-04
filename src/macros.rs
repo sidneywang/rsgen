@@ -90,6 +90,66 @@ macro_rules! push {
     ($dest:expr, $($x:expr,)*) => {push!($dest, $($x),*)};
 }
 
+#[macro_export]
+macro_rules! push_f {
+    ($dest:expr, |$t:ident| $code:block) => {
+        $dest.push({
+            let mut $t = $crate::Tokens::new();
+            $code
+            $t
+        })
+    };
+
+    ($dest:expr, $f:expr) => {
+        $dest.push({
+            let mut _t = $crate::Tokens::new();
+            _t.append(Clone::clone(&$f));
+            _t
+        })
+    };
+
+    ($dest:expr, $f:expr, $($x:expr),*) => {
+        $dest.push({
+            let mut _t = $crate::Tokens::new();
+            let fmt = format!($f, $(Clone::clone(&$x)),*);
+            _t.append(fmt);
+            _t
+        })
+    };
+
+    ($dest:expr, $f:expr, $($x:expr,)*) => {push_f!($dest, $f, $($x),*)};
+}
+
+#[macro_export]
+macro_rules! nested_f {
+    ($dest:expr, |$t:ident| $code:block) => {
+        $dest.nested({
+            let mut $t = $crate::Tokens::new();
+            $code
+            $t
+        })
+    };
+
+    ($dest:expr, $f:expr) => {
+        $dest.nested({
+            let mut _t = $crate::Tokens::new();
+            _t.append(Clone::clone(&$f));
+            _t
+        })
+    };
+
+    ($dest:expr, $f:expr, $($x:expr),*) => {
+        $dest.nested({
+            let mut _t = $crate::Tokens::new();
+            let fmt = format!($f, $(Clone::clone(&$x)),*);
+            _t.append(fmt);
+            _t
+        })
+    };
+
+    ($dest:expr, $f:expr, $($x:expr,)*) => {nested_f!($dest, $f, $($x),*)};
+}
+
 /// Helper macro to reduce boilerplate needed with nested token expressions.
 ///
 /// All arguments being pushed are cloned, which should be cheap for reference types.
@@ -207,6 +267,31 @@ mod tests {
             push!(t, "}");
         });
         push!(t, "var foo = bar();");
+
+        let mut out = Vec::new();
+        out.push("function bar(a, b) {");
+        out.push("  var v = a + b;");
+        out.push("  return v;");
+        out.push("}");
+        out.push("var foo = bar();");
+
+        assert_eq!(out.join("\n").as_str(), t.to_string().unwrap().as_str());
+
+        let mut t = Tokens::<JavaScript>::new();
+
+        let v = "v";
+        let a = "a";
+        let b = "b";
+
+        push_f!(t, |t| {
+            push_f!(t, "function bar({}, {}) {{", "a", "b");
+            nested_f!(t, |t| {
+                push_f!(t, "var {} = {} + {};", v, a, b);
+                push_f!(t, "return v;");
+            });
+            push_f!(t, "}");
+        });
+        push_f!(t, "var foo = bar();");
 
         let mut out = Vec::new();
         out.push("function bar(a, b) {");
