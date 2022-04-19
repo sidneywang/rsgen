@@ -20,6 +20,20 @@ macro_rules! toks {
     ($($x:expr,)*) => {toks!($($x),*)}
 }
 
+#[macro_export]
+macro_rules! toks_f {
+    ($f:expr, $($x:expr),*) => {
+        {
+            let mut _t = $crate::Tokens::new();
+            let fmt = format!($f, $(Clone::clone(&$x)),*);
+            _t.append(fmt);
+            _t
+        }
+    };
+
+    ($f:expr, $($x:expr,)*) => {toks!($f, $($x),*)}
+}
+
 /// Helper macro to reduce boilerplate needed with pushed token expressions.
 ///
 /// All arguments being pushed are cloned, which should be cheap for reference types.
@@ -333,5 +347,8 @@ mod tests {
         out.push("var foo = bar();");
 
         assert_eq!(out.join("\n").as_str(), t.to_string().unwrap().as_str());
+
+        let tks: Tokens<JavaScript> = toks_f!("{} {} {}", 1, "a", "b");
+        assert_eq!("1 a b", tks.to_string().unwrap().as_str())
     }
 }
