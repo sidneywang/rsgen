@@ -20,6 +20,10 @@ macro_rules! toks {
     ($($x:expr,)*) => {toks!($($x),*)}
 }
 
+///
+///         let tks: Tokens<JavaScript> = toks_f!("{} {} {}", 1, "a", "b");
+///         assert_eq!("1 a b", tks.to_string().unwrap().as_str())
+///
 #[macro_export]
 macro_rules! toks_f {
     ($f:expr, $($x:expr),*) => {
@@ -120,7 +124,6 @@ macro_rules! push {
 //         push_f!(t, "var foo = bar();");
 ///
 ///
-
 #[macro_export]
 macro_rules! push_f {
     ($dest:expr, |$t:ident| $code:block) => {
