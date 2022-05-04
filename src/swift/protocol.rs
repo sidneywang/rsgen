@@ -1,11 +1,11 @@
 //! Data structure for interfaces.
 
+use swift::field::Field;
 use swift::method::Method;
 use swift::modifier::Modifier;
 use swift::Swift;
-use ::{Cons, Tokens};
 use IntoTokens;
-use swift::field::Field;
+use {Cons, Tokens};
 
 /// Model for Swift Protocol.
 #[derive(Debug, Clone)]
@@ -123,9 +123,9 @@ impl<'el> IntoTokens<'el, Swift<'el>> for Protocol<'el> {
 
 #[cfg(test)]
 mod tests {
-    use swift::{local, Swift};
     use swift::protocol::Protocol;
-    use ::{IntoTokens, Tokens};
+    use swift::{local, Swift};
+    use {IntoTokens, Tokens};
 
     #[test]
     fn test_vec() {

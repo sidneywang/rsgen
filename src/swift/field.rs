@@ -1,12 +1,12 @@
 //! Data structure for fields
 
 use con_::Con;
-use swift::modifier::Modifier;
-use swift::Swift;
-use ::{Cons, Tokens};
-use ::{Element, IntoTokens};
 use element::Element::Spacing;
 use swift::comment::BlockComment;
+use swift::modifier::Modifier;
+use swift::Swift;
+use {Cons, Tokens};
+use {Element, IntoTokens};
 
 /// Model for Swift Fields.
 #[derive(Debug, Clone)]
@@ -46,7 +46,7 @@ impl<'el> Field<'el> {
             initializer: None,
             mutable: false,
             getter: None,
-            setter: None
+            setter: None,
         }
     }
 
@@ -177,8 +177,13 @@ mod tests {
         field.initializer("300");
         field.getter = Some(Tokens::new());
         field.setter = Some(Tokens::new());
-        let t : Tokens<_> = field.into();
+        let t: Tokens<_> = field.into();
         let result = t.to_string();
-        assert_eq!(Ok(String::from("private var foo : Int = 300 {\n  get\n  set\n}")), result);
+        assert_eq!(
+            Ok(String::from(
+                "private var foo : Int = 300 {\n  get\n  set\n}"
+            )),
+            result
+        );
     }
 }

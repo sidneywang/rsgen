@@ -2,6 +2,7 @@
 
 use super::con_::Con;
 use std::fmt;
+use std::fmt::{Debug, Display, Pointer};
 use {Cons, Custom, Formatter, Tokens};
 
 use std::rc::Rc;

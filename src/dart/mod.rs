@@ -324,7 +324,8 @@ mod tests {
             import2.name("b"),
             import_alias.name("c"),
             import_relative.name("d"),
-        ].join_spacing();
+        ]
+        .join_spacing();
 
         let expected = vec![
             "import \"../http.dart\";",

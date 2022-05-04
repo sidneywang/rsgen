@@ -45,9 +45,9 @@ macro_rules! toks_f {
 /// ## Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate rsgen;
+/// # #[macro_use] extern crate rstgen;
 /// # fn main() {
-/// use rsgen::{Tokens, Java, Cons};
+/// use rstgen::{Tokens, Java, Cons};
 ///
 /// let mut toks = Tokens::<Java>::new();
 /// // id being cloned.
@@ -67,9 +67,9 @@ macro_rules! toks_f {
 /// Pushing as a block:
 ///
 /// ```rust
-/// # #[macro_use] extern crate rsgen;
+/// # #[macro_use] extern crate rstgen;
 /// # fn main() {
-/// use rsgen::{Tokens, Java, Cons};
+/// use rstgen::{Tokens, Java, Cons};
 ///
 /// let mut toks = Tokens::<Java>::new();
 /// // id being cloned.
@@ -206,9 +206,9 @@ macro_rules! nested_f {
 /// ## Examples
 ///
 /// ```rust
-/// # #[macro_use] extern crate rsgen;
+/// # #[macro_use] extern crate rstgen;
 /// # fn main() {
-/// use rsgen::{Tokens, Java, Cons};
+/// use rstgen::{Tokens, Java, Cons};
 ///
 /// let mut toks = Tokens::<Java>::new();
 /// // id being cloned.
@@ -229,9 +229,10 @@ macro_rules! nested_f {
 /// Pushing as a block:
 ///
 /// ```rust
-/// # #[macro_use] extern crate rsgen;
+/// # #[macro_use] extern crate rstgen;
 /// # fn main() {
 /// use rsgen::{Tokens, Java, Cons};
+/// use rstgen::Java;
 ///
 /// let mut toks = Tokens::<Java>::new();
 /// // id being cloned.
@@ -331,11 +332,12 @@ mod tests {
         let v = "v";
         let a = "a";
         let b = "b";
+        let d: Tokens<JavaScript> = toks!("d");
 
         push_f!(t, |t| {
-            push_f!(t, "function bar({}, {}) {{", "a", "b");
+            push_f!(t, "function bar({}, {}, {}) {{", "a", "b", d);
             nested_f!(t, |t| {
-                push_f!(t, "var {} = {} + {};", v, a, b);
+                push_f!(t, "var {} = {} + {} + {};", v, a, b, d);
                 push_f!(t, "return v;");
             });
             push_f!(t, "}");
@@ -343,8 +345,8 @@ mod tests {
         push_f!(t, "var foo = bar();");
 
         let mut out = Vec::new();
-        out.push("function bar(a, b) {");
-        out.push("  var v = a + b;");
+        out.push("function bar(a, b, d) {");
+        out.push("  var v = a + b + d;");
         out.push("  return v;");
         out.push("}");
         out.push("var foo = bar();");

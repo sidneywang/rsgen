@@ -198,9 +198,9 @@ mod tests {
         let mut toks: Tokens<Python> = Tokens::new();
         toks.push(toks![imported("collections").name("named_tuple")]);
         toks.push(toks![imported("collections")]);
-        toks.push(toks![
-            imported("collections").alias("c").name("named_tuple")
-        ]);
+        toks.push(toks![imported("collections")
+            .alias("c")
+            .name("named_tuple")]);
         toks.push(toks![imported("collections").alias("c")]);
 
         assert_eq!(

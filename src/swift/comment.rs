@@ -1,5 +1,5 @@
-use {Cons, Element, IntoTokens, Tokens};
 use swift::Swift;
+use {Cons, Element, IntoTokens, Tokens};
 
 /// Format a block comment, starting with `/**`, and ending in `*/`.
 pub struct BlockComment<'el>(pub Vec<Cons<'el>>);

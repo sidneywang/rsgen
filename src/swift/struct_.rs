@@ -4,9 +4,9 @@ use swift::constructor::Constructor;
 use swift::field::Field;
 use swift::method::Method;
 use swift::modifier::Modifier;
-use ::{Cons, IntoTokens};
-use ::{Element, Tokens};
 use swift::Swift;
+use {Cons, IntoTokens};
+use {Element, Tokens};
 
 /// Model for Swift Classs.
 #[derive(Debug, Clone)]
@@ -43,7 +43,7 @@ impl<'el> Struct<'el> {
             parameters: Tokens::new(),
             attributes: Tokens::new(),
             name: name.into(),
-            implements: vec![]
+            implements: vec![],
         }
     }
 

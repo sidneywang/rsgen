@@ -3,7 +3,7 @@
 //! ## Example
 //!
 //! ```rust
-//! use rsgen::{Tokens, Java};
+//! use rstgen::{Java, Tokens};
 //! let mut toks: Tokens<Java> = Tokens::new();
 //! toks.append("foo");
 //! ```
@@ -12,6 +12,7 @@ use con_::Con::{self, Borrowed, Owned};
 use element::Element::{Append, Nested, Push};
 use std::collections::LinkedList;
 use std::fmt;
+use std::fmt::Display;
 use std::iter::FromIterator;
 use std::rc::Rc;
 use std::result;
@@ -235,6 +236,13 @@ impl<'el, E: Default, C: Custom<Extra = E>> Tokens<'el, C> {
     /// Format the tokens.
     pub fn to_string(self) -> result::Result<String, fmt::Error> {
         self.to_string_with(C::Extra::default())
+    }
+}
+
+impl<'el, E: Default, C: Custom<Extra = E> + Clone> Display for Tokens<'el, C> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let str = Tokens::to_string(Tokens::clone(&self)).unwrap();
+        f.write_str(&str)
     }
 }
 

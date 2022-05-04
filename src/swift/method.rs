@@ -1,10 +1,10 @@
 //! Data structure for methods.
 
-use {Cons, IntoTokens, Tokens};
 use swift::argument::Argument;
 use swift::comment::BlockComment;
 use swift::modifier::Modifier;
 use swift::{Swift, VOID};
+use {Cons, IntoTokens, Tokens};
 
 /// Model for Swift Methods.
 #[derive(Debug, Clone)]
@@ -32,8 +32,8 @@ pub struct Method<'el> {
 impl<'el> Method<'el> {
     /// Build a new empty constructor.
     pub fn new<N>(name: N) -> Method<'el>
-        where
-            N: Into<Cons<'el>>,
+    where
+        N: Into<Cons<'el>>,
     {
         use self::Modifier::*;
 
@@ -52,13 +52,13 @@ impl<'el> Method<'el> {
 
     /// Push an annotation.
     pub fn attribute<A>(&mut self, attribute: A)
-        where
-            A: IntoTokens<'el, Swift<'el>>,
+    where
+        A: IntoTokens<'el, Swift<'el>>,
     {
         self.attributes.push(attribute.into_tokens());
     }
     /// Set returns of the method.
-    pub fn returns(&mut self, returns : Swift<'el>) {
+    pub fn returns(&mut self, returns: Swift<'el>) {
         self.returns = Some(returns)
     }
 
@@ -131,8 +131,8 @@ impl<'el> IntoTokens<'el, Swift<'el>> for Method<'el> {
 
 #[cfg(test)]
 mod tests {
-    use swift::local;
     use super::Method;
+    use swift::local;
     use tokens::Tokens;
 
     fn build_method() -> Method<'static> {
@@ -182,6 +182,9 @@ mod tests {
     #[test]
     fn test_returns() {
         let t = Tokens::from(build_return_method());
-        assert_eq!(Ok(String::from("public func foo<T>() -> Int;")), t.to_string());
+        assert_eq!(
+            Ok(String::from("public func foo<T>() -> Int;")),
+            t.to_string()
+        );
     }
 }

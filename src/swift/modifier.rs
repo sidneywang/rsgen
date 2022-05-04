@@ -1,5 +1,4 @@
 /// A Swift modifier.
-
 use std::collections::BTreeSet;
 use {Custom, Element, IntoTokens, Tokens};
 
@@ -31,7 +30,7 @@ pub enum Modifier {
     /// override modifier
     Override,
     /// required modifier
-    Required
+    Required,
 }
 
 impl Modifier {
@@ -51,7 +50,7 @@ impl Modifier {
             Throws => "throws",
             Convenience => "convenience",
             Override => "override",
-            Required => "required"
+            Required => "required",
         }
     }
 }

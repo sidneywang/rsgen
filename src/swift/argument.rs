@@ -31,7 +31,10 @@ impl<'el> Argument<'el> {
     }
 
     /// Set the initializer for argument.
-    pub fn initializer<I>(&mut self, initializer: I) where I : IntoTokens<'el, Swift<'el>> {
+    pub fn initializer<I>(&mut self, initializer: I)
+    where
+        I: IntoTokens<'el, Swift<'el>>,
+    {
         self.initializer.append(initializer.into_tokens())
     }
 
@@ -73,10 +76,7 @@ mod tests {
 
     #[test]
     fn test_argument() {
-        let mut c = Argument::new(
-            local("Int"),
-            "arg",
-        );
+        let mut c = Argument::new(local("Int"), "arg");
         let mut init = Tokens::new();
         init.append("100");
         c.initializer(init);

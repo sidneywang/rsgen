@@ -1,12 +1,12 @@
 //! Data structure for enums.
 
-use ::{Element, Tokens};
-use ::{Cons, IntoTokens};
 use swift::constructor::Constructor;
 use swift::field::Field;
 use swift::method::Method;
 use swift::modifier::Modifier;
 use swift::Swift;
+use {Cons, IntoTokens};
+use {Element, Tokens};
 
 /// Model for Swift Enums.
 #[derive(Debug, Clone)]

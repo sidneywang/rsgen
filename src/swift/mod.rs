@@ -29,7 +29,7 @@ pub use self::protocol::Protocol;
 pub use self::struct_::Struct;
 
 /// Short primitive type.
-pub const SHORT: Swift<'static> = Swift::Primitive { primitive: "Int16"};
+pub const SHORT: Swift<'static> = Swift::Primitive { primitive: "Int16" };
 
 /// Integer primitive type.
 pub const INTEGER: Swift<'static> = Swift::Primitive { primitive: "Int32" };
@@ -41,13 +41,17 @@ pub const LONG: Swift<'static> = Swift::Primitive { primitive: "Int64" };
 pub const FLOAT: Swift<'static> = Swift::Primitive { primitive: "Float" };
 
 /// Double primitive type.
-pub const DOUBLE: Swift<'static> = Swift::Primitive { primitive: "Double" };
+pub const DOUBLE: Swift<'static> = Swift::Primitive {
+    primitive: "Double",
+};
 
 /// Char primitive type.
-pub const CHAR: Swift<'static> = Swift::Primitive { primitive: "Character" };
+pub const CHAR: Swift<'static> = Swift::Primitive {
+    primitive: "Character",
+};
 
 /// Boolean primitive type.
-pub const BOOLEAN: Swift<'static> = Swift::Primitive { primitive:"Bool"};
+pub const BOOLEAN: Swift<'static> = Swift::Primitive { primitive: "Bool" };
 
 /// Byte primitive type.
 pub const BYTE: Swift<'static> = Swift::Primitive { primitive: "Int8" };
@@ -216,9 +220,9 @@ impl<'el> Custom for Swift<'el> {
 
 /// Setup an imported element.
 pub fn imported<'a, M, N>(module: M, name: N) -> Swift<'a>
-    where
-        M: Into<Cons<'a>>,
-        N: Into<Cons<'a>>,
+where
+    M: Into<Cons<'a>>,
+    N: Into<Cons<'a>>,
 {
     Swift::Type {
         name: Name {
@@ -230,8 +234,8 @@ pub fn imported<'a, M, N>(module: M, name: N) -> Swift<'a>
 
 /// Setup a local element.
 pub fn local<'a, N>(name: N) -> Swift<'a>
-    where
-        N: Into<Cons<'a>>,
+where
+    N: Into<Cons<'a>>,
 {
     Swift::Type {
         name: Name {
@@ -243,9 +247,9 @@ pub fn local<'a, N>(name: N) -> Swift<'a>
 
 /// Setup a map.
 pub fn map<'a, K, V>(key: K, value: V) -> Swift<'a>
-    where
-        K: Into<Swift<'a>>,
-        V: Into<Swift<'a>>,
+where
+    K: Into<Swift<'a>>,
+    V: Into<Swift<'a>>,
 {
     Swift::Map {
         key: Box::new(key.into()),
@@ -255,8 +259,8 @@ pub fn map<'a, K, V>(key: K, value: V) -> Swift<'a>
 
 /// Setup an array.
 pub fn array<'a, I>(inner: I) -> Swift<'a>
-    where
-        I: Into<Swift<'a>>,
+where
+    I: Into<Swift<'a>>,
 {
     Swift::Array {
         inner: Box::new(inner.into()),
